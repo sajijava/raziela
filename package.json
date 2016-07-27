@@ -1,0 +1,38 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha tests/**/*Test.js --reporter spec"
+  },
+  "dependencies": {
+    "axios": "^0.13.0",
+    "browserify": "^13.0.1",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "express": "3.3.5",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.1",
+    "gulp-header": "^1.8.7",
+    "gulp-less": "^3.1.0",
+    "gulp-react": "^3.1.0",
+    "gulp-util": "^3.0.7",
+    "jade": "*",
+    "less-middleware": "^2.2.0",
+    "lodash": "^4.13.1",
+    "mocha": "^2.5.3",
+    "mongodb": "^2.2.0",
+    "mongoose": "^4.5.3",
+    "node-notifier": "^4.6.0",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.1",
+    "react-route": "^1.0.3",
+    "react-router": "^2.5.2",
+    "reactify": "^1.1.1",
+    "reflux": "^0.4.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0",
+    "whatwg-fetch": "^1.0.0"
+  }
+}
