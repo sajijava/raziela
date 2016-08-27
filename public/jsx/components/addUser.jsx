@@ -6,12 +6,20 @@ module.exports = React.createClass({
 		return {
 			firstName:"",
 			lastName:"",
-			email:""
+			email:"",
+			show:this.props.showEdit
 			}
 	},
+	componentWillReceiveProps:function(){
+		console.log(this.props)
+		this.setState({show:this.props.showEdit})
+	},
 	render : function(){
-					return <div className="form-horizontal">
-									
+		console.log(this.state)
+					return <div className="row">{this.showUserEdit()}</div>
+	},
+	showUserEdit:function(){
+		return (this.state.show)?<div className="form-horizontal" >
 								<div className="form-group">
 									<label className="col-sm-2 control-label">First Name :</label>
 									<div className="col-sm-10"> 
@@ -39,8 +47,8 @@ module.exports = React.createClass({
 										<button className="btn btn-primary" type="button" onClick={this.clearEm}>Clear</button>
 									</div>
 								</div>
-
 						</div>
+						:"";
 	},
 	handelFirstNameChange:function(event){		this.setState({firstName:event.target.value})	},
 	handelLastNameChange:function(event){		this.setState({lastName:event.target.value})	},
@@ -48,6 +56,7 @@ module.exports = React.createClass({
 	addEm:function(){
 		console.log(this.state.firstName+" "+this.state.lastName+" "+this.state.email);
 		UserStore.addUser(this.state)
+		this.clearEm()
 		/*.then(function(err{
 			console.log(err)
 		})*/
@@ -56,7 +65,8 @@ module.exports = React.createClass({
 		this.setState({
 				firstName:'',
 				lastName:'',
-				email:''
+				email:'',
+				show:false
 				})
 	}
 	

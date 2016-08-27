@@ -4,60 +4,42 @@ var Link = Router.Link;
 var UserStore = require('../stores/UserStore')
 var Actions = require('../Actions')
 var Reflux = require('reflux');
+var UserItem = require('./userItem')
+var AddUser = require('./addUser')
 
 
 module.exports = React.createClass({
+	getInitialState:function(){
+		return{
+			showEdit:false
+		};
+	},
 	render: function(){
-					return <div>
+					return <div className="row">
 									  <div className="page-header">
 											<h3>Manage User </h3>
 										</div>
-										<div >
+										<div  className="row">
+											<span ><a onClick={this.handelAddUser}>Add User</a></span>
+											<AddUser showEdit={this.state.showEdit}></AddUser>
+										</div>
+										<div className="row">
 										  <div className="list-group">
 												<UserList />
 											</div>
 										</div>
 									</div>
-					}
-});
-
-
-
-var UserItem = React.createClass({
-	getInitialState : function(){
-		//console.log(this.props)
-		return {
-			canShowIcon:false,
-			user: this.props.item
-		}
+					},
+	triggerAddUser:function(){
+		
+		Actions.triggerAddUser();
 	},
-	render:function(){
-		//return <h2>hi</h2>
-		return <div className="list-group-item" onMouseEnter={this.handleShowIcons} onMouseLeave={this.handleHideIcons}>
-												<div className="row">
-													<div className="col-sm-10">{this.state.user.firstName} {this.state.user.lastName}</div>
-													{this.showIcons()}
-												</div>
-												<div className="row">more details</div>
-								
-								</div>
-	},
-	handleShowIcons :function(){
-			this.setState({canShowIcon: true});
-	},
-	handleHideIcons :function(){
-			this.setState({canShowIcon: false});
-	},
-	showIcons:function()
-	{
-		return  (this.state.canShowIcon)?<div className="col-sm-2 btn-toolbar ">
-							<span className="btn-group btn-group-sm glyphicon glyphicon-trash pull-right"></span>&nbsp;
-							<span className="btn-group btn-group-sm glyphicon glyphicon-pencil pull-right"></span>
-						</div>
-						:<div className="col-sm-2 btn-toolbar ">&nbsp;</div>
-
+	handelAddUser:function(){
+		this.setState({showEdit:true})
+		console.log(this.state.showEdit);
 	}
-})
+	
+});
 
 
 var UserList = React.createClass({
@@ -74,7 +56,7 @@ var UserList = React.createClass({
 	},
 	
 	render:function(){
-		console.log(this.state.userList)
+		//console.log(this.state.userList)
 		return <div className="list-group">
 							{this.getUserList()}
 						</div>
@@ -83,7 +65,7 @@ var UserList = React.createClass({
 		
 		return (this.state.userList.data)
 						?	this.state.userList.data.map(function(m){
-								console.log(m)
+								//console.log(m)
 								return <UserItem key={m._id} item={m}/>
 								//return m.firstName;
 							})
@@ -93,7 +75,14 @@ var UserList = React.createClass({
 		console.log(d)
 	},
 	onChange:function(event, userList){
-		console.log("onChange "+event)
-		this.setState({userList :userList})
+		console.log(event)
+		if (event == 'addUser') {
+			console.log('add a user')
+			this.state.userList.data.push({});
+			this.setState({userList :this.state.userList})
+		}else{
+			this.setState({userList :userList})
+		}
+		
 	}
 })

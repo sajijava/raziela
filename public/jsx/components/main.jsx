@@ -3,7 +3,7 @@ var Header = require('./header')
 
 module.exports = React.createClass({
 				render:function(){
-							return <div>
+							return <div className="row"> 
 												<Header />	
 												{this.props.children}
 										</div>

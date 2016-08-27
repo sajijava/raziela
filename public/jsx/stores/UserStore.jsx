@@ -16,16 +16,38 @@ module.exports = Reflux.createStore({
 		addUser:function(data){
 			return Api.post('/api/auth/addUser',data)
 					.then(function(response){
-							if (response.status === 'SUCCESS') {
-								this.getUserList();							
-							}else{
-								return response.message;
-							}
+								this.refreshUserList(response);
 						}.bind(this))
 		
 		},
+		updateUser:function(data){
+				return Api.post('/api/auth/updateUser',data)
+					.then(function(response){
+							this.refreshUserList(response);
+						}.bind(this))
+
+		},
+		removeUser:function(id){
+			return Api.delete('/api/auth/removeUser/'+id)
+					.then(function(response){
+							 this.refreshUserList(response);
+						}.bind(this))
+				
+		},
 		triggerChange:function(){
 			this.trigger('change',this.userList)
+		},
+		triggerAddUser:function(){
+			this.trigger('addUser',{})	
+		},
+		refreshUserList:function(response){
+				console.log(response);
+				if (response.status === 'SUCCESS') {
+					this.getUserList();							
+				}else{
+						console.log(response.message);
+					return response.message;
+				}
 		}
 		
 })

@@ -13,6 +13,12 @@ module.exports={
 					.catch(function (error) {
 							console.log(error);
 					});
+	},
+	delete:function(url){
+		return Axios.delete(url)
+					.catch(function (error) {
+							console.log(error);
+					});
 	}
 
 }

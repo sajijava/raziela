@@ -62,7 +62,35 @@ var validateUser = function(userInfo){
 	return message;
 }
 
+var updateUser = function(req, res){
+	
+}
+
+var removeUser = function(req, res){
+	
+	var id = req.params.id;
+	console.log(id);
+	if (id) {
+		try{		
+				UserAuthModel.findOneAndRemove({'_id':id},function(err){
+						console.log(err)
+					if (err) {
+						console.log(err);
+						res.json(response.failureResponse(null,err))
+					}else{
+						console.log('removed')
+						res.json(response.successResponse({}))
+					}
+				})
+		}catch(e){
+			res.json(response.failureResponse(null,e))
+		}
+	}
+}
+
 exports.setRoutes = function(app){
 	app.post(url.user.ADD_USER, addUser)
+	app.put(url.user.UPDATE_USER, updateUser)
+	app.delete(url.user.REMOVE_USER, removeUser)
 	app.get(url.user.GET_USER_LIST, getUserList)
 }

@@ -4,8 +4,8 @@ var Link = Router.Link;
 
 module.exports = React.createClass({
 				render:function(){
-						return <nav className="navbar navbar-inverse header">
-										<div className="container-fluid">
+						return <nav className="row navbar navbar-inverse header">
+										<div className="row container-fluid">
 											<Link to="/" className="navbar-brand">Raziela - <i>my secret is God</i></Link>
 											
 											<ul  className="nav navbar-nav navbar-right">
